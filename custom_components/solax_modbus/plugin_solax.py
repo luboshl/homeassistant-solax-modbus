@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from homeassistant.components.number import NumberEntityDescription
 from homeassistant.components.select import SelectEntityDescription
 from homeassistant.components.button import ButtonEntityDescription
+from homeassistant.components.time import TimeEntityDescription
 from pymodbus.payload import BinaryPayloadBuilder, BinaryPayloadDecoder, Endian
 from custom_components.solax_modbus.const import *
 from time import time
@@ -87,6 +88,10 @@ class SolaXModbusSensorEntityDescription(BaseModbusSensorEntityDescription):
     #order32: int = Endian.Little
     unit: int = REGISTER_U16
     register_type: int = REG_HOLDING
+
+@dataclass
+class SolaXModbusTimeEntityDescription(BaseModbusTImeEntityDescription):
+    allowedtypes: int = ALLDEFAULT # maybe 0x0000 (nothing) is a better default choice
 
 @dataclass
 class SolaXMicModbusSensorEntityDescription(BaseModbusSensorEntityDescription):
@@ -920,80 +925,14 @@ SELECT_TYPES = [
         entity_category = EntityCategory.CONFIG,
         icon = "mdi:battery-clock",
     ),
-    SolaxModbusSelectEntityDescription(
-        name = "Charger End Time 1",
-        key = "charger_end_time_1",
-        register = 0x27,
-        option_dict = TIME_OPTIONS,
-        allowedtypes = GEN2 | GEN3, 
-        entity_category = EntityCategory.CONFIG,
-        icon = "mdi:battery-clock",
-    ),
-     SolaxModbusSelectEntityDescription(
-        name = "Charger End Time 1",
-        key = "charger_end_time_1",
-        register = 0x69,
-        option_dict = TIME_OPTIONS_GEN4,
-        allowedtypes = HYBRID | AC | GEN4, 
-        entity_category = EntityCategory.CONFIG,
-        icon = "mdi:battery-clock",
-    ),
-    SolaxModbusSelectEntityDescription(
-        name = "Charger End Time 2",
-        key = "charger_end_time_2",
-        register = 0x2B,
-        option_dict = TIME_OPTIONS,
-        allowedtypes = HYBRID | AC | GEN2 | GEN3, 
-        entity_category = EntityCategory.CONFIG,
-        icon = "mdi:battery-clock",
-    ),
-    SolaxModbusSelectEntityDescription(
-        name = "Charger End Time 2",
-        key = "charger_end_time_2",
-        register = 0x6E,
-        option_dict = TIME_OPTIONS_GEN4,
-        allowedtypes = HYBRID | AC | GEN4,
-        entity_category = EntityCategory.CONFIG,
-        icon = "mdi:battery-clock",
-    ),
-    SolaxModbusSelectEntityDescription(
-        name = "Charger Start Time 1",
-        key = "charger_start_time_1",
-        register = 0x26,
-        option_dict = TIME_OPTIONS,
-        allowedtypes = HYBRID | AC | GEN2 | GEN3,
-        entity_category = EntityCategory.CONFIG,
-        icon = "mdi:battery-clock",
-    ),
-    SolaxModbusSelectEntityDescription(
-        name = "Charger Start Time 1",
-        key = "charger_start_time_1",
-        register = 0x68,
-        option_dict = TIME_OPTIONS_GEN4,
-        allowedtypes = HYBRID | AC | GEN4,
-        entity_category = EntityCategory.CONFIG,
-        icon = "mdi:battery-clock",
-    ),
-    SolaxModbusSelectEntityDescription(
-        name = "Charger Start Time 2",
-        key = "charger_start_time_2",
-        register = 0x2A,
-        option_dict = TIME_OPTIONS,
-        allowedtypes = HYBRID | AC | GEN2 | GEN3,
-        entity_category = EntityCategory.CONFIG,
-        icon = "mdi:battery-clock",
-    ),
-    # comment this  block to test prevent_update
-    SolaxModbusSelectEntityDescription(              # block
-        name = "Charger Start Time 2",               # block
-        key = "charger_start_time_2",                # block
-        register = 0x6D,                             # block
-        option_dict = TIME_OPTIONS_GEN4,             # block
-        allowedtypes = HYBRID | AC | GEN4,           # block
-        entity_category = EntityCategory.CONFIG,     # block
-        icon = "mdi:battery-clock",                  # block
-    ),
-    # end of block
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+
     SolaxModbusSelectEntityDescription(
         name = "Charger Use Mode",
         key = "charger_use_mode",
@@ -4178,6 +4117,82 @@ SENSOR_TYPES_MAIN: list[SolaXModbusSensorEntityDescription] = [
     ),
 ]
 
+# ================================= Time Declarations ============================================================
+TIME_TYPES = [
+    SolaXModbusTimeEntityDescription(
+        name = "Charger End Time 1",
+        key = "charger_end_time_1",
+        register = 0x27,
+        option_dict = TIME_OPTIONS,
+        allowedtypes = GEN2 | GEN3, 
+        entity_category = EntityCategory.CONFIG,
+        icon = "mdi:battery-clock",
+    ),
+     SolaXModbusTimeEntityDescription(
+        name = "Charger End Time 1",
+        key = "charger_end_time_1",
+        register = 0x69,
+        option_dict = TIME_OPTIONS_GEN4,
+        allowedtypes = HYBRID | AC | GEN4, 
+        entity_category = EntityCategory.CONFIG,
+        icon = "mdi:battery-clock",
+    ),
+    SolaXModbusTimeEntityDescription(
+        name = "Charger End Time 2",
+        key = "charger_end_time_2",
+        register = 0x2B,
+        option_dict = TIME_OPTIONS,
+        allowedtypes = HYBRID | AC | GEN2 | GEN3, 
+        entity_category = EntityCategory.CONFIG,
+        icon = "mdi:battery-clock",
+    ),
+    SolaXModbusTimeEntityDescription(
+        name = "Charger End Time 2",
+        key = "charger_end_time_2",
+        register = 0x6E,
+        option_dict = TIME_OPTIONS_GEN4,
+        allowedtypes = HYBRID | AC | GEN4,
+        entity_category = EntityCategory.CONFIG,
+        icon = "mdi:battery-clock",
+    ),
+    SolaXModbusTimeEntityDescription(
+        name = "Charger Start Time 1",
+        key = "charger_start_time_1",
+        register = 0x26,
+        option_dict = TIME_OPTIONS,
+        allowedtypes = HYBRID | AC | GEN2 | GEN3,
+        entity_category = EntityCategory.CONFIG,
+        icon = "mdi:battery-clock",
+    ),
+    SolaXModbusTimeEntityDescription(
+        name = "Charger Start Time 1",
+        key = "charger_start_time_1",
+        register = 0x68,
+        option_dict = TIME_OPTIONS_GEN4,
+        allowedtypes = HYBRID | AC | GEN4,
+        entity_category = EntityCategory.CONFIG,
+        icon = "mdi:battery-clock",
+    ),
+    SolaXModbusTimeEntityDescription(
+        name = "Charger Start Time 2",
+        key = "charger_start_time_2",
+        register = 0x2A,
+        option_dict = TIME_OPTIONS,
+        allowedtypes = HYBRID | AC | GEN2 | GEN3,
+        entity_category = EntityCategory.CONFIG,
+        icon = "mdi:battery-clock",
+    ),
+    SolaXModbusTimeEntityDescription(
+        name = "Charger Start Time 2",
+        key = "charger_start_time_2",
+        register = 0x6D,
+        option_dict = TIME_OPTIONS_GEN4,
+        allowedtypes = HYBRID | AC | GEN4,
+        entity_category = EntityCategory.CONFIG,
+        icon = "mdi:battery-clock",
+    ),
+]
+
 SENSOR_TYPES_MIC: list[SolaXMicModbusSensorEntityDescription] = [
 
     SolaXMicModbusSensorEntityDescription(
@@ -4756,7 +4771,8 @@ plugin_instance = solax_plugin(
     SENSOR_TYPES = SENSOR_TYPES_MAIN,
     NUMBER_TYPES = NUMBER_TYPES,
     BUTTON_TYPES = BUTTON_TYPES,
-    SELECT_TYPES = SELECT_TYPES, 
+    SELECT_TYPES = SELECT_TYPES,
+    TIME_TYPES = TIME_TYPES,
     block_size = 100,
     order16 = Endian.Big,
     order32 = Endian.Little,
