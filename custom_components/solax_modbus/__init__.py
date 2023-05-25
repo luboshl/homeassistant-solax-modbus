@@ -58,7 +58,7 @@ from .const import (
 from .const import REGISTER_S32, REGISTER_U32, REGISTER_U16, REGISTER_S16, REGISTER_ULSB16MSB16, REGISTER_STR, REGISTER_WORDS, REGISTER_U8H, REGISTER_U8L
 
 
-PLATFORMS = ["button", "number", "select", "sensor"] 
+PLATFORMS = ["button", "number", "select", "sensor", "time"] 
 
 #seriesnumber = 'unknown'
 
